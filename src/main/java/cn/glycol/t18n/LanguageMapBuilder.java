@@ -3,9 +3,8 @@ package cn.glycol.t18n;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 public class LanguageMapBuilder {
 
@@ -27,7 +26,7 @@ public class LanguageMapBuilder {
 				
 			}
 		}
-		return Lists.<String>newArrayList();
+		return new ArrayList<>();
 	}
 	
 	private static LanguageMap getLanguageMapFromLines(LanguageMapConfiguration config, List<String> lines) {
