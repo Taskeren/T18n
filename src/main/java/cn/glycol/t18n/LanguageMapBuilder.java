@@ -1,6 +1,10 @@
 package cn.glycol.t18n;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -76,6 +80,38 @@ public class LanguageMapBuilder {
 	
 	private static boolean isUnreadable(String[] s) {
 		return s[0] == null;
+	}
+	
+	public static LanguageMap fromJarResource(String path) {
+		return fromJarResource(path, LanguageMapConfiguration.DEFAULT);
+	}
+
+	public static LanguageMap fromJarResource(String path, LanguageMapConfiguration config) {
+		
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+		if(is == null) {
+			return new LanguageMap();
+		}
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		
+		String cache;
+		List<String> strs = new ArrayList<>();
+		
+		try {
+			while(true) {
+				if((cache = br.readLine()) != null) {
+					strs.add(cache);
+				} else {
+					break;
+				}
+			}
+		} catch(IOException e) {
+			
+		}
+		
+		return getLanguageMapFromLines(config, strs);
+		
 	}
 	
 }
