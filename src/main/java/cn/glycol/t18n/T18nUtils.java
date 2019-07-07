@@ -68,7 +68,7 @@ public class T18nUtils {
 		
 		try {
 			
-			String content = I18n.flattenList(map.getAllKeyValuePairs());
+			String content = flattenList(map.getAllKeyValuePairs());
 			
 			if(!file.exists()) {
 				file.getParentFile().mkdirs();
@@ -82,6 +82,19 @@ public class T18nUtils {
 		} catch (Exception e) {
 			System.err.println("Unable to write "+file);
 		}
+		
+	}
+	
+	/** 使字符串列表扁平化。 */
+	public static String flattenList(List<String> vlist) {
+		
+		String v = "";
+		for(String o : vlist) {
+			v += o + "\n";
+		}
+		v = v.trim();
+		
+		return v;
 		
 	}
 	

@@ -61,26 +61,13 @@ public class I18n {
 		
 	}
 	
-	/** 使字符串列表扁平化。 */
-	private static String flattenList(List<String> vlist) {
-		
-		String v = "";
-		for(String o : vlist) {
-			v += o + "\n";
-		}
-		v = v.trim();
-		
-		return v;
-		
-	}
-	
 	/**
 	 * 将列表翻译中的内容进行format操作。
 	 * @see #translateList(String)
 	 */
 	public static String formatList(String keyRegular, Object...format) {
 		
-		return tryFormat(flattenList(translateList(keyRegular)), format);
+		return tryFormat(T18nUtils.flattenList(translateList(keyRegular)), format);
 		
 	}
 	
