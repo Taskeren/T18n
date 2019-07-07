@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class I18n {
 
 	private static LanguageMap map;
@@ -61,7 +62,7 @@ public class I18n {
 	}
 	
 	/** 使字符串列表扁平化。 */
-	public static String flattenList(List<String> vlist) {
+	private static String flattenList(List<String> vlist) {
 		
 		String v = "";
 		for(String o : vlist) {
@@ -87,7 +88,8 @@ public class I18n {
 		return getLanguageMapSafe().containsKey(key);
 	}
 	
-	public static boolean canTranslate(String key) {
+	/** @see #hasKey(String) */
+	private static boolean canTranslate(String key) {
 		return hasKey(key);
 	}
 	
