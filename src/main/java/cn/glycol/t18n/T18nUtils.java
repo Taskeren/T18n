@@ -68,7 +68,7 @@ public class T18nUtils {
 		
 		try {
 			
-			String content = flattenList(map.getAllKeyValuePairs());
+			String content = flattenList(map.getAllKeyValuePairsString());
 			
 			if(!file.exists()) {
 				file.getParentFile().mkdirs();

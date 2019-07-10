@@ -2,6 +2,7 @@ package cn.glycol.t18n;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class LanguageMap extends HashMap<String, String> {
 
@@ -11,7 +12,15 @@ public class LanguageMap extends HashMap<String, String> {
 		return super.getOrDefault(key, key.toString());
 	}
 	
-	public ArrayList<String> getAllKeyValuePairs() {
+	/** 返回所有键值对
+	 * @see #entrySet()
+	 */
+	public Set<Entry<String, String>> getAllKeyValuePairs() {
+		return this.entrySet();
+	}
+	
+	/** 获取所有键值对文字 */
+	public ArrayList<String> getAllKeyValuePairsString() {
 		
 		ArrayList<String> list = new ArrayList<String>();
 		for(Entry<String, String> set : this.entrySet()) {
@@ -26,6 +35,12 @@ public class LanguageMap extends HashMap<String, String> {
 		}
 		
 		return list;
+	}
+	
+	/** 输出键值对 */
+	public static void printKVPair(LanguageMap langMap) {
+		ArrayList<String> lines = langMap.getAllKeyValuePairsString();
+		lines.forEach(s->System.out.println(s));
 	}
 	
 }

@@ -16,6 +16,12 @@ public class I18n {
 		charset = Charset.forName(System.getProperty("file.encoding"));
 	}
 	
+	/* *******************************************************
+	 * 
+	 * Settings
+	 * 
+	 * *******************************************************/
+	
 	public static void setLanguageMap(LanguageMap map) {
 		I18n.map = map;
 	}
@@ -23,6 +29,12 @@ public class I18n {
 	public static void setEncoding(String charset) {
 		I18n.charset = Charset.forName(charset);
 	}
+	
+	/* *******************************************************
+	 * 
+	 * Localization functions
+	 * 
+	 * *******************************************************/
 	
 	/** 自动从语言文件中提取翻译，空翻译时返回原键值 */
 	public static String translate(String key) {
@@ -75,6 +87,12 @@ public class I18n {
 		return getLanguageMapSafe().containsKey(key);
 	}
 	
+	/* *******************************************************
+	 * 
+	 * Utilities
+	 * 
+	 * *******************************************************/
+	
 	/** @see #hasKey(String) */
 	private static boolean canTranslate(String key) {
 		return hasKey(key);
@@ -95,6 +113,16 @@ public class I18n {
 	
 	private static LanguageMap getLanguageMapSafe() {
 		return map == null ? new LanguageMap() : map;
+	}
+	
+	/* *******************************************************
+	 * 
+	 * For Devlopers
+	 * 
+	 * *******************************************************/
+	
+	public static LanguageMap getLangMap() {
+		return map;
 	}
 	
 }
