@@ -1,7 +1,10 @@
 package cn.glycol.t18n;
 
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -98,8 +101,10 @@ public class I18n {
 		return hasKey(key);
 	}
 	
+	private static final Charset DEFAULT_CHARSET = Charset.forName("unicode");
+	
 	private static String reEncode(String bef, Charset charset) {
-		byte[] bytes = bef.getBytes();
+		byte[] bytes = bef.getBytes(charset);
 		return new String(bytes, charset);
 	}
 	
