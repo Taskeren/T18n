@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +22,17 @@ public class LanguageMapBuilder {
 	}
 
 	public static LanguageMap fromJarResource(String path) {
-		return fromJarResource(path, LanguageMapConfiguration.DEFAULT);
+		return fromJarResource(path, "UTF8", LanguageMapConfiguration.DEFAULT);
 	}
 
-	public static LanguageMap fromJarResource(String path, LanguageMapConfiguration config) {
+	public static LanguageMap fromJarResource(String path, String encode, LanguageMapConfiguration config) {
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 		if (is == null) {
 			return new LanguageMap();
 		}
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName(encode)));
 
 		String cache;
 		List<String> strs = new ArrayList<>();
