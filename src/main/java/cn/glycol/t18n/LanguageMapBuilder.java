@@ -11,20 +11,43 @@ import java.util.List;
 
 public class LanguageMapBuilder {
 
+	/**
+	 * 从文件读取语言包
+	 * @param langFile 语言文件
+	 * @return 语言包
+	 */
 	public static LanguageMap fromFile(File langFile) {
 		return fromFile(langFile, LanguageMapConfiguration.DEFAULT);
 	}
 
+	/**
+	 * 从文件读取语言包
+	 * @param langFile 语言文件
+	 * @param config 读取配置
+	 * @return 语言包
+	 */
 	public static LanguageMap fromFile(File langFile, LanguageMapConfiguration config) {
 
 		List<String> lines = T18nUtils.getLocalContent(langFile);
 		return processFinal(config, lines);
 	}
 
+	/**
+	 * 以 UTF8 为编码读取Jar包里的资源
+	 * @param path 资源地址
+	 * @return 语言包
+	 */
 	public static LanguageMap fromJarResource(String path) {
 		return fromJarResource(path, "UTF8", LanguageMapConfiguration.DEFAULT);
 	}
 
+	/**
+	 * 用设定编码读取Jar包里的资源
+	 * @param path 资源地址
+	 * @param encode 编码名称，例如<code>UTF-8</code>，<code>GBK</code>，<code>Unicode</code>等等。
+	 * @param config 读取配置
+	 * @return 语言包
+	 */
 	public static LanguageMap fromJarResource(String path, String encode, LanguageMapConfiguration config) {
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
@@ -53,10 +76,21 @@ public class LanguageMapBuilder {
 
 	}
 	
+	/**
+	 * 从在线页面读取语言包
+	 * @param url 页面地址
+	 * @return 语言包
+	 */
 	public static LanguageMap fromURL(String url) {
 		return fromURL(url, LanguageMapConfiguration.DEFAULT);
 	}
 	
+	/**
+	 * 从在线页面读取语言包
+	 * @param url 页面地址
+	 * @param config 读取配置
+	 * @return 语言包
+	 */
 	public static LanguageMap fromURL(String url, LanguageMapConfiguration config) {
 		return processFinal(config, T18nUtils.getOnlineContent(url));
 	}
