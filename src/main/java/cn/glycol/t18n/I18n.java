@@ -4,15 +4,16 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
+
 public class I18n {
 
-	private static LanguageMap map;
-	private static Charset charset;
+	protected static LanguageMap map;
+	protected static Charset charset;
 	
-	public static final int LOOP_MAX_COUNT = 1000;
+	protected static final int LOOP_MAX_COUNT = 32767;
 	
 	static {
+		map = new LanguageMap();
 		charset = Charset.forName(System.getProperty("file.encoding"));
 	}
 	
@@ -22,10 +23,12 @@ public class I18n {
 	 * 
 	 * *******************************************************/
 	
+	@Deprecated
 	public static void setLanguageMap(LanguageMap map) {
-		I18n.map = map;
+		T18n.set(map);
 	}
 	
+	@Deprecated
 	public static void setEncoding(String charset) {
 		I18n.charset = Charset.forName(charset);
 	}
@@ -37,8 +40,9 @@ public class I18n {
 	 * *******************************************************/
 	
 	/** 自动从语言文件中提取翻译，空翻译时返回原键值 */
+	@Deprecated
 	public static String translate(String key) {
-		return reEncode(getLanguageMapSafe().get(key), charset);
+		return reEncode(map.get(key), charset);
 	}
 	
 	/** 自动翻译（translate）后再执行格式化（format）  */
@@ -52,6 +56,7 @@ public class I18n {
 	 * 连续读取翻译（translate）。
 	 * @param keyRegular 翻译键值表达式，需要填入一个“%s”用于替换为行数。行数从0开始。例如“welcome.%s”，则程序会依次向列表中添加“welcome.0”，“welcome.1”...的翻译，直到获取到空值。
 	 */
+	@Deprecated
 	public static List<String> translateList(String keyRegular) {
 		
 		List<String> vlist = new ArrayList<String>();
@@ -78,13 +83,13 @@ public class I18n {
 	 * @see #translateList(String)
 	 */
 	public static String formatList(String keyRegular, Object...format) {
-		
+
 		return tryFormat(T18nUtils.flattenList(translateList(keyRegular)), format);
 		
 	}
 	
 	public static boolean hasKey(String key) {
-		return getLanguageMapSafe().containsKey(key);
+		return map.containsKey(key);
 	}
 	
 	/* *******************************************************
@@ -92,13 +97,6 @@ public class I18n {
 	 * Utilities
 	 * 
 	 * *******************************************************/
-	
-	/** @see #hasKey(String) */
-	private static boolean canTranslate(String key) {
-		return hasKey(key);
-	}
-	
-	private static final Charset DEFAULT_CHARSET = Charset.forName("unicode");
 	
 	private static String reEncode(String bef, Charset charset) {
 		byte[] bytes = bef.getBytes(charset);
@@ -113,16 +111,13 @@ public class I18n {
 		}
 	}
 	
-	private static LanguageMap getLanguageMapSafe() {
-		return map == null ? new LanguageMap() : map;
-	}
-	
 	/* *******************************************************
 	 * 
 	 * For Devlopers
 	 * 
 	 * *******************************************************/
 	
+	@Deprecated
 	public static LanguageMap getLangMap() {
 		return map;
 	}
