@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 public class T18nUtils {
@@ -68,7 +69,10 @@ public class T18nUtils {
 		
 		try {
 			
-			String content = flattenList(map.getAllKeyValuePairsString());
+			String content = "";
+			for(Entry<String, String> entries : map.entrySet()) {
+				content += entries.getKey() + "=" + entries.getValue() + "\n";
+			}
 			
 			if(!file.exists()) {
 				file.getParentFile().mkdirs();

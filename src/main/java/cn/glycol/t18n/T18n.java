@@ -3,7 +3,7 @@ package cn.glycol.t18n;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-public class T18n {
+public class T18n extends I18n {
 
 	/**
 	 * 设置本地化对照表

@@ -19,29 +19,12 @@ public class I18n {
 	
 	/* *******************************************************
 	 * 
-	 * Settings
-	 * 
-	 * *******************************************************/
-	
-	@Deprecated
-	public static void setLanguageMap(LanguageMap map) {
-		T18n.set(map);
-	}
-	
-	@Deprecated
-	public static void setEncoding(String charset) {
-		I18n.charset = Charset.forName(charset);
-	}
-	
-	/* *******************************************************
-	 * 
 	 * Localization functions
 	 * 
 	 * *******************************************************/
 	
 	/** 自动从语言文件中提取翻译，空翻译时返回原键值 */
-	@Deprecated
-	public static String translate(String key) {
+	protected static String translate(String key) {
 		return reEncode(map.get(key), charset);
 	}
 	
@@ -56,8 +39,7 @@ public class I18n {
 	 * 连续读取翻译（translate）。
 	 * @param keyRegular 翻译键值表达式，需要填入一个“%s”用于替换为行数。行数从0开始。例如“welcome.%s”，则程序会依次向列表中添加“welcome.0”，“welcome.1”...的翻译，直到获取到空值。
 	 */
-	@Deprecated
-	public static List<String> translateList(String keyRegular) {
+	protected static List<String> translateList(String keyRegular) {
 		
 		List<String> vlist = new ArrayList<String>();
 		
@@ -109,17 +91,6 @@ public class I18n {
 		} catch (Exception e) {
 			return context;
 		}
-	}
-	
-	/* *******************************************************
-	 * 
-	 * For Devlopers
-	 * 
-	 * *******************************************************/
-	
-	@Deprecated
-	public static LanguageMap getLangMap() {
-		return map;
 	}
 	
 }
